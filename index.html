@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ead8d0">
+  <title>BellaShine | Joyería</title>
+  <style>
+    :root{
+      --pink:#f0cbd5; --pink-dark:#bd8794; --beige:#eadbca; --cream:#fffaf6;
+      --gold:#b89558; --gold-light:#d8bd86; --ink:#51413e; --muted:#887773;
+      --white:#fff; --shadow:0 12px 35px rgba(91,62,54,.10); --radius:20px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--cream);color:var(--ink);font-family:Georgia,"Times New Roman",serif}
+    button,input,textarea,select{font:inherit}
+    button,a{ -webkit-tap-highlight-color:transparent}
+    a{color:inherit}
+    .announcement{background:var(--ink);color:#fff;text-align:center;padding:9px 12px;font:12px Arial,sans-serif;letter-spacing:1.5px}
+    header{position:sticky;top:0;z-index:20;background:rgba(255,250,246,.96);backdrop-filter:blur(12px);border-bottom:1px solid #eaded5}
+    .header-inner{max-width:1180px;margin:auto;padding:13px 20px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+    .brand{display:flex;align-items:center;gap:11px;text-decoration:none}
+    .brand-mark{width:48px;height:48px;border:1px solid var(--gold);border-radius:50%;display:grid;place-items:center;color:var(--gold);font-size:25px;background:#fff}
+    .brand-name{font-size:25px;letter-spacing:2px;color:#9b7475}
+    .brand-name small{display:block;font:9px Arial,sans-serif;letter-spacing:4px;text-align:center;color:var(--gold)}
+    nav{display:flex;align-items:center;gap:17px;font:13px Arial,sans-serif}
+    nav a{text-decoration:none;color:var(--ink)}
+    nav a:hover{color:var(--pink-dark)}
+    .menu-toggle{display:none;border:0;background:none;font-size:24px;color:var(--ink)}
+    .hero{max-width:1180px;margin:25px auto 0;padding:0 20px}
+    .hero-panel{min-height:410px;border:1px solid #ead8d0;box-shadow:0 18px 45px rgba(91,62,54,.14);border-radius:30px;overflow:hidden;position:relative;display:flex;align-items:center;background:linear-gradient(100deg,rgba(255,250,246,.97),rgba(255,250,246,.77),rgba(255,250,246,.1)),url('https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=1800&h=1000&q=85') center/cover,#ead8d0}
+    .hero-content{padding:55px;max-width:600px}
+    .eyebrow{font:11px Arial,sans-serif;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+    h1{font-size:clamp(38px,6vw,66px);font-weight:normal;line-height:1.05;margin:13px 0;color:#765d5c}
+    .hero p{font-size:17px;line-height:1.7;color:#766562;max-width:470px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:30px;padding:13px 22px;background:var(--gold);color:#fff;text-decoration:none;cursor:pointer;font:13px Arial,sans-serif;letter-spacing:.4px;transition:.2s}
+    .btn:hover{transform:translateY(-2px);background:#a78249}
+    .btn-outline{background:transparent;color:var(--ink);border:1px solid var(--gold)}
+    .btn-outline:hover{background:var(--beige);color:var(--ink)}
+    .section{max-width:1180px;margin:65px auto;padding:0 20px}
+    .section-heading{text-align:center;margin-bottom:28px}
+    .section-heading h2{font-size:34px;font-weight:normal;margin:8px 0;color:#806666}
+    .section-heading p{font:13px Arial,sans-serif;color:var(--muted);line-height:1.6}
+    .category-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .category-card{border:1px solid #eadbd1;background:#fff;border-radius:18px;overflow:hidden;cursor:pointer;text-align:left;padding:0;box-shadow:var(--shadow);transition:.2s;color:var(--ink)}
+    .category-card:hover,.category-card.active{transform:translateY(-6px);border-color:var(--gold);box-shadow:0 18px 36px rgba(91,62,54,.16)}
+    .category-image{height:155px;background:linear-gradient(135deg,#f4e8df,#e8cdd0);display:grid;place-items:center;font-size:52px;color:#b89558}
+    .category-image img{width:100%;height:100%;object-fit:cover}
+    .category-label{display:block;padding:15px 17px;font-size:19px}
+    .category-label small{display:block;margin-top:5px;font:11px Arial,sans-serif;color:var(--muted)}
+    #catalog{scroll-margin-top:95px}
+    .catalog-top{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:22px}
+    .catalog-top h2{font-size:31px;font-weight:normal;margin:0;color:#806666}
+    .back-btn{border:1px solid #d9c4b6;background:#fff;border-radius:25px;padding:10px 16px;color:var(--ink);cursor:pointer;font:12px Arial,sans-serif}
+    .product-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:17px}
+    .product-card{transition:transform .22s,box-shadow .22s;background:#fff;border:1px solid #eee2da;border-radius:17px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .product-card:hover{transform:translateY(-5px);box-shadow:0 18px 36px rgba(91,62,54,.16)}.product-photo{height:210px;background:linear-gradient(135deg,#f4e9e2,#ead8d0);position:relative;overflow:hidden;display:grid;place-items:center;color:#b89558}
+    .product-photo img{width:100%;height:100%;object-fit:cover;display:block}
+    .photo-placeholder{text-align:center;padding:15px;font:12px Arial,sans-serif;color:#9d8178}
+    .photo-placeholder span{display:block;font-size:38px;margin-bottom:7px}
+    .product-info{padding:14px;display:flex;flex-direction:column;gap:8px;flex:1}
+    .product-info h3{font-size:18px;font-weight:normal;margin:0}
+    .product-info p{font:12px/1.5 Arial,sans-serif;color:var(--muted);margin:0;flex:1}
+    .price{color:#a47e43;font-size:18px}
+    .product-info .btn{width:100%;padding:10px 12px;font-size:12px}
+    .empty-note{text-align:center;color:var(--muted);font:13px Arial,sans-serif;padding:25px}
+    .feature-band{background:linear-gradient(120deg,#f4dfe5,#f8eee7,#eadbca);padding:43px 20px;text-align:center}
+    .feature-band h2{font-size:30px;font-weight:normal;color:#806666;margin:0 0 10px}
+    .feature-band p{font:13px/1.7 Arial,sans-serif;color:var(--muted);max-width:650px;margin:0 auto 20px}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:25px;align-items:start}
+    .panel{background:#fff;border:1px solid #eee1d8;border-radius:20px;padding:25px;box-shadow:var(--shadow)}
+    .panel h3{font-size:25px;font-weight:normal;color:#806666;margin:0 0 9px}
+    .panel>p{font:13px/1.6 Arial,sans-serif;color:var(--muted)}
+    .staff-list{display:grid;gap:11px;margin-top:18px}
+    .staff-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px;border-radius:13px;background:#fbf5f1}
+    .staff-item strong{display:block;font-size:16px;font-weight:normal}
+    .staff-item small{display:block;font:12px Arial,sans-serif;color:var(--muted);margin-top:4px}
+    .staff-item a{font:12px Arial,sans-serif;text-decoration:none;color:#8b6b45;white-space:nowrap}
+    .booking-form{display:grid;gap:12px;margin-top:16px}
+    .field{display:grid;gap:6px}
+    .field label{font:12px Arial,sans-serif;color:#765f59}
+    .field input,.field textarea,.field select{width:100%;border:1px solid #e5d6cd;border-radius:10px;padding:12px;background:#fffdfb;color:var(--ink);outline:none}
+    .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--gold)}
+    .field textarea{min-height:75px;resize:vertical}
+    .form-note{font:11px/1.5 Arial,sans-serif;color:var(--muted)}
+    .booking-result{display:none;padding:12px;background:#edf5ec;border:1px solid #c9dfc5;color:#41623f;border-radius:10px;font:12px/1.5 Arial,sans-serif}
+    .appointment-list{margin-top:20px}
+    .appointment-list h4{font-weight:normal;font-size:19px;margin:0 0 10px}
+    .appointment{border:1px solid #eaded5;border-radius:12px;padding:12px;margin:9px 0;background:#fffaf7;font:12px/1.5 Arial,sans-serif}
+    .appointment strong{font-size:13px}
+    .appointment button{margin-top:8px}
+    .social-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+    .social-row a{border:1px solid var(--gold);border-radius:25px;padding:11px 20px;text-decoration:none;font:12px Arial,sans-serif}
+    .location-card{background:#fff;border-radius:18px;padding:24px;text-align:center;border:1px solid #eee1d8}
+    footer{background:#554542;color:#fff;text-align:center;padding:35px 20px;margin-top:65px}
+    footer .footer-brand{font-size:27px;letter-spacing:3px;color:#efd6d1}
+    footer p{font:11px/1.7 Arial,sans-serif;color:#e7d8d2}
+    .modal-backdrop{display:none;position:fixed;inset:0;background:rgba(40,28,25,.5);z-index:50;align-items:center;justify-content:center;padding:18px}
+    .modal-backdrop.show{display:flex}
+    .modal{width:min(100%,430px);background:#fffaf6;border-radius:20px;padding:23px;max-height:85vh;overflow:auto}
+    .modal-head{display:flex;justify-content:space-between;align-items:center}
+    .modal-head h3{font-size:24px;font-weight:normal;margin:0;color:#806666}
+    .close{border:0;background:none;font-size:25px;cursor:pointer;color:var(--ink)}
+    .modal p{font:13px/1.5 Arial,sans-serif;color:var(--muted)}
+    .modal-staff{display:grid;gap:10px}
+    .modal-staff a{display:flex;justify-content:space-between;gap:12px;text-decoration:none;padding:14px;border-radius:12px;background:#f5e9e3;font:13px Arial,sans-serif}
+    .modal-staff a span:last-child{color:#98733e}
+    .admin-tools{font:11px Arial,sans-serif;color:var(--muted);text-align:center;margin-top:18px}
+    .admin-tools button{border:0;background:none;color:#98733e;text-decoration:underline;cursor:pointer}
+    @media(max-width:900px){.product-grid{grid-template-columns:repeat(3,1fr)}.category-image{height:130px}}
+    @media(max-width:620px){
+      .header-inner{padding:10px 15px}.brand-name{font-size:21px}.brand-mark{width:42px;height:42px}
+      .menu-toggle{display:block}nav{display:none;position:absolute;top:69px;left:0;right:0;background:#fffaf6;padding:18px 22px;box-shadow:var(--shadow);flex-direction:column;align-items:flex-start}
+      nav.open{display:flex}.hero{margin-top:14px;padding:0 12px}.hero-panel{min-height:330px;background-position:60% center}.hero-content{padding:28px}
+      .hero p{font-size:14px}.section{margin:48px auto;padding:0 13px}.category-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+      .category-image{height:125px}.category-label{padding:12px;font-size:17px}
+      .product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.product-photo{height:155px}.product-info{padding:11px}.product-info h3{font-size:16px}
+      .two-col{grid-template-columns:1fr}.panel{padding:19px}.section-heading h2{font-size:29px}
+      .catalog-top h2{font-size:26px}
+    }
+  </style>
+</head>
+<body>
+  <div class="announcement">BELLEZA EN CADA DETALLE · BIENVENIDOS A BELLASHINE</div>
+  <header>
+    <div class="header-inner">
+      <a class="brand" href="#inicio" aria-label="BellaShine inicio">
+        <span class="brand-mark" style="overflow:hidden;padding:0">
+          <img src="imagenes/logo-shine.png" alt="Logo BellaShine"
+               style="width:100%;height:100%;object-fit:contain"
+               onerror="this.style.display='none';this.parentElement.textContent='BS'">
+        </span>
+        <span class="brand-name">BellaShine<small>JOYERÍA</small></span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
+      <nav id="mainNav">
+        <a href="#inicio">Inicio</a><a href="#categorias">Categorías</a><a href="#citas">Agendar cita</a><a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-panel">
+        <div class="hero-content">
+          <div class="eyebrow">Un brillo especial para ti</div>
+          <h1>Tu estilo,<br>tu brillo.</h1>
+          <p>Descubre accesorios que acompañan tus momentos especiales. Encuentra esa joya que habla de ti en BellaShine.</p>
+          <a class="btn" href="#categorias">EXPLORAR COLECCIÓN</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="categorias">
+      <div class="section-heading">
+        <div class="eyebrow">Nuestra colección</div>
+        <h2>Encuentra tu favorito</h2>
+        <p>Selecciona una categoría para descubrir nuestros productos.</p>
+      </div>
+      <div class="category-grid" id="categoryGrid"></div>
+    </section>
+
+    <section class="section" id="catalog" hidden>
+      <div class="catalog-top">
+        <div><div class="eyebrow">BellaShine colección</div><h2 id="catalogTitle">Anillos</h2></div>
+        <button class="back-btn" id="backToCategories">← Volver a categorías</button>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+    </section>
+
+    <section class="feature-band">
+      <h2>Un detalle que ilumina tu día</h2>
+      <p>En BellaShine queremos ayudarte a encontrar el accesorio ideal. Escríbenos para consultar disponibilidad, precios o recibir atención personalizada.</p>
+      <button class="btn" id="generalConsult">CONSULTAR POR WHATSAPP</button>
+    </section>
+
+    <section class="section" id="citas">
+      <div class="section-heading">
+        <div class="eyebrow">Atención personalizada</div>
+        <h2>Agenda tu cita</h2>
+        <p>Completa tus datos para solicitar una visita. También podrás enviar la solicitud por WhatsApp.</p>
+      </div>
+      <div class="two-col">
+        <div class="panel">
+          <h3>Reserva tu momento</h3>
+          <p>Déjanos tus datos y el personal de BellaShine podrá revisar tu solicitud.</p>
+          <form class="booking-form" id="bookingForm">
+            <div class="field"><label for="clientName">Nombre completo *</label><input id="clientName" required maxlength="80" placeholder="Escribe tu nombre"></div>
+            <div class="field"><label for="clientPhone">Número de celular *</label><input id="clientPhone" required inputmode="tel" maxlength="20" placeholder="Tu número de contacto"></div>
+            <div class="field"><label for="appointmentDate">Fecha deseada *</label><input id="appointmentDate" type="date" required></div>
+            <div class="field"><label for="appointmentTime">Hora deseada *</label><input id="appointmentTime" type="time" required></div>
+            <div class="field"><label for="appointmentReason">¿Qué deseas consultar?</label><textarea id="appointmentReason" maxlength="500" placeholder="Ej. Ver anillos, consultar precios, realizar una compra..."></textarea></div>
+            <div class="field"><label for="assignedStaff">Personal de contacto</label><select id="assignedStaff"><option value="BellaShine">Cualquier integrante disponible</option></select></div>
+            <button class="btn" type="submit">REGISTRAR Y ENVIAR SOLICITUD</button>
+            <div class="booking-result" id="bookingResult" role="status"></div>
+            <p class="form-note">La solicitud es una petición de cita, no una confirmación automática. El personal deberá confirmar la disponibilidad por WhatsApp.</p>
+          </form>
+        </div>
+        <div class="panel">
+          <h3>Personal de atención</h3>
+          <p>Comunícate directamente con el propietario de BellaShine. El botón abrirá WhatsApp.</p>
+          <div class="staff-list" id="staffList"></div>
+          <div class="appointment-list" id="localAppointments">
+            <h4>Registro de citas en este dispositivo</h4>
+            <p class="form-note">Estas solicitudes se guardan en el navegador de este dispositivo. Para que todo el personal vea el mismo registro, configura la conexión compartida indicada al final del archivo.</p>
+            <div id="appointmentItems"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contacto">
+      <div class="section-heading"><div class="eyebrow">Estamos para ayudarte</div><h2>Conecta con BellaShine</h2><p>Síguenos y visita nuestro espacio.</p></div>
+      <div class="two-col">
+        <div class="location-card">
+          <h3 style="font-weight:normal;color:#806666">Nuestra ubicación</h3>
+          <p style="font:13px/1.6 Arial,sans-serif;color:var(--muted)">Encuéntranos en nuestra ubicación comercial.</p>
+          <a class="btn" href="https://maps.app.goo.gl/bVt6DAdroVoU7w9d7?g_st=aw" target="_blank" rel="noopener">VER UBICACIÓN EN MAPS</a>
+        </div>
+        <div class="location-card">
+          <h3 style="font-weight:normal;color:#806666">Síguenos en redes sociales</h3>
+          <p style="font:13px/1.6 Arial,sans-serif;color:var(--muted)">Conoce nuestras novedades y accesorios.</p>
+          <div class="social-row"><a href="https://www.instagram.com/shn.joyeria?rpxt=eGM1YWdoNmJjb2F4" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/share/1K9e3cKqdo/" target="_blank" rel="noopener">Facebook</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-brand">BellaShine</div>
+    <p>JOYERÍA · BRILLA CON TU PROPIO ESTILO</p>
+    <p>© <span id="year"></span> BellaShine. Todos los derechos reservados.</p>
+  </footer>
+
+  <div class="modal-backdrop" id="consultModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modal-head"><h3 id="modalTitle">Consultar producto</h3><button class="close" id="closeModal" aria-label="Cerrar">×</button></div>
+      <p>Tu consulta será enviada directamente al propietario de BellaShine por WhatsApp.</p>
+      <div class="modal-staff" id="modalStaff"></div>
+    </div>
+  </div>
+
+  <script>
+    /******************************************************************
+     * BELLASHINE - CONFIGURACIÓN
+     * IMÁGENES:
+     * 1) Coloca tus fotografías reales en una carpeta llamada "imagenes".
+     * 2) Cada producto usa una ruta src, por ejemplo:
+     *    image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=900&h=900&q=85"
+     * 3) Las categorías también tienen su propia fotografía.
+     * 4) Cambia el valor de image/src por el nombre de tu fotografía.
+     * 5) Las imágenes de los 20 productos son distintas y editables en PRODUCTS.\n     * 6) Para activar el registro compartido, configura API_URL.
+     ******************************************************************/
+
+    const STAFF = [
+      { name: "Willian Camama", phone: "59174751647" }
+    ];
+
+    const CATEGORIES = [
+      { id:"anillos", name:"Anillos", description:"Detalles que enamoran", image:"https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=900&h=900&q=85" },
+      { id:"pulseras", name:"Pulseras", description:"Un toque de elegancia", image:"https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=900&h=900&q=85" },
+      { id:"collares", name:"Collares", description:"Brilla desde el corazón", image:"https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&h=900&q=85" },
+      { id:"aretes", name:"Aretes", description:"Pequeños detalles, gran estilo", image:"https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=900&h=900&q=85" }
+    ];
+
+    // Puedes modificar nombres, descripciones, precios e imágenes.
+    // Sustituye las rutas imagenes/... por las fotografías reales de tus productos.
+    const PRODUCTS = {
+      anillos: [
+        {id:"anillo-1",name:"Anillo Elegance",description:"Un diseño delicado para acompañar cualquier ocasión.",price:"Consultar precio",image:"https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=900&h=900&q=85"},
+        {id:"anillo-2",name:"Anillo Dorado",description:"Un detalle clásico con un acabado elegante.",price:"Consultar precio",image:"https://images.unsplash.com/photo-1603561596112-0a132b757442?auto=format&fit=crop&w=900&h=900&q=85"},
+        {id:"anillo-3",name:"Anillo Brillo",description:"Una pieza especial para iluminar tu estilo.",price:"Consultar precio",image:"https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=900&h=900&q=85"},
+        {id:"anillo-4",name:"Anillo Clásico",description:"Diseño versátil, ideal para todos los días.",price:"Consultar precio",image:"https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=900&h=900&q=85"},
+        {id:"anillo-5",name:"Anillo Shine",description:"Un accesorio delicado con personalidad.",price:"Consultar precio",image:"https://images.unsplash.com/photo-1602173574767-37ac01994b2a?auto=format&fit=crop&w=900&h=900&q=85"}
+      ],
+      pulseras: [
+        {id:"pulsera-1",name:"Pulsera Elegance",description:"Un complemento delicado para tu muñeca.",price:"Consultar precio",image:"https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=900&h=900&q=85"},
+        {id:"pulsera-2",name:"Pulsera Dorada",description:"Un toque de brillo para cualquier momento.",price:"Consultar precio",image:"https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?auto=format&fit=crop&w=900&h=900&q=85"},
+        {id:"pulsera-3",name:"Pulsera Brillo",description:"Un diseño especial para destacar.",price:"Consultar precio",image:"https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=900&h=900&q=85"},
+        {id:"pulsera-4",name:"Pulsera Clásica",description:"Sencilla, bonita y fácil de combinar.",price:"Consultar precio",image:"https://images.unsplash.com/photo-1531995811006-35cb42e1a022?auto=format&fit=crop&w=900&h=900&q=85"},
+        {id:"pulsera-5",name:"Pulsera Shine",description:"Un detalle que completa tu estilo.",price:"Consultar precio",image:"https://images.unsplash.com/photo-1599459183200-1d5b505e5c8a?auto=format&fit=crop&w=900&h=900&q=85"}
+      ],
+      collares: [
+        {id:"collar-1",name:"Collar Elegance",description:"Una pieza delicada para realzar tu look.",price:"Consultar precio",image:"https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&w=900&h=900&q=85"},
+        {id:"collar-2",name:"Collar Dorado",description:"Un diseño clásico con un brillo especial.",price:"Consultar precio",image:"https://images.unsplash.com/photo-1588444650700-6c7c2e7a4e6a?auto=format&fit=crop&w=900&h=900&q=85"},
+        {id:"collar-3",name:"Collar Brillo",description:"Ideal para darle un toque especial a tu outfit.",price:"Consultar precio",image:"https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?auto=format&fit=crop&w=900&h=900&q=85"},
+        {id:"collar-4",name:"Collar Clásico",description:"Elegancia sencilla para cada ocasión.",price:"Consultar precio",image:"https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&h=900&q=85"},
+        {id:"collar-5",name:"Collar Shine",description:"Un accesorio delicado que no pasa desapercibido.",price:"Consultar precio",image:"https://images.unsplash.com/photo-1611085583191-a3b181a88401?auto=format&fit=crop&w=900&h=900&q=85"}
+      ],
+      aretes: [
+        {id:"arete-1",name:"Aretes Elegance",description:"Un detalle delicado para iluminar tu rostro.",price:"Consultar precio",image:"https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=900&h=900&q=85"},
+        {id:"arete-2",name:"Aretes Dorados",description:"Un acabado clásico y fácil de combinar.",price:"Consultar precio",image:"https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&h=900&q=85"},
+        {id:"arete-3",name:"Aretes Brillo",description:"Pequeños detalles que hacen la diferencia.",price:"Consultar precio",image:"https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=900&h=900&q=85"},
+        {id:"arete-4",name:"Aretes Clásicos",description:"Un estilo bonito para todos los días.",price:"Consultar precio",image:"https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=900&h=900&q=85"},
+        {id:"arete-5",name:"Aretes Shine",description:"Un toque especial para completar tu look.",price:"Consultar precio",image:"https://images.unsplash.com/photo-1515562141207-7a88fb7ce338-alt?auto=format&fit=crop&w=900&h=900&q=85"}
+      ]
+    };
+
+    // REGISTRO COMPARTIDO:
+    // Pega aquí la URL de tu servicio web (por ejemplo, una Web App de Google Apps Script).
+    // Si queda vacío, las citas se guardan solamente en este navegador.
+    const API_URL = "";
+
+    const $ = (id) => document.getElementById(id);
+    const moneyOrText = (value) => value || "Consultar precio";
+    let currentProduct = null;
+
+    function whatsappLink(person, message){
+      return `https://wa.me/${person.phone}?text=${encodeURIComponent(message)}`;
+    }
+
+    function renderCategories(){
+      $("categoryGrid").innerHTML = CATEGORIES.map(cat => `
+        <button class="category-card" type="button" data-category="${cat.id}">
+          <span class="category-image">
+            <img src="${escapeAttr(cat.image)}" alt="Fotografía de ${escapeAttr(cat.name)}"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+            <span class="photo-placeholder" style="display:none">Coloca aquí la fotografía de ${escapeHtml(cat.name)}<br><small>${escapeHtml(cat.image)}</small></span>
+          </span>
+          <span class="category-label">${cat.name}<small>${cat.description}</small></span>
+        </button>
+      `).join("");
+      document.querySelectorAll("[data-category]").forEach(button=>{
+        button.addEventListener("click",()=>openCategory(button.dataset.category));
+      });
+    }
+
+    function openCategory(categoryId){
+      const category = CATEGORIES.find(c=>c.id===categoryId);
+      if(!category) return;
+      $("catalog").hidden = false;
+      $("catalogTitle").textContent = category.name;
+      $("productGrid").innerHTML = (PRODUCTS[categoryId] || []).map(product=>`
+        <article class="product-card">
+          <div class="product-photo">
+            <img src="${escapeAttr(product.image)}" alt="${escapeAttr(product.name)}"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+            <div class="photo-placeholder" style="display:none">Agrega aquí la fotografía del producto<br><small>${escapeHtml(product.image)}</small></div>
+          </div>
+          <div class="product-info">
+            <h3>${escapeHtml(product.name)}</h3>
+            <p>${escapeHtml(product.description)}</p>
+            <div class="price">${escapeHtml(moneyOrText(product.price))}</div>
+            <button class="btn product-consult" type="button" data-product="${escapeAttr(product.id)}">CONSULTAR</button>
+          </div>
+        </article>
+      `).join("");
+      document.querySelectorAll(".product-consult").forEach(button=>{
+        button.addEventListener("click",()=>{
+          currentProduct = (PRODUCTS[categoryId] || []).find(p=>p.id===button.dataset.product);
+          openConsultModal(currentProduct);
+        });
+      });
+      document.querySelectorAll(".category-card").forEach(b=>b.classList.toggle("active",b.dataset.category===categoryId));
+      $("catalog").scrollIntoView({behavior:"smooth",block:"start"});
+    }
+
+    function escapeHtml(value){
+      return String(value ?? "").replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+    }
+    function escapeAttr(value){ return escapeHtml(value); }
+
+    function openConsultModal(product){
+      $("modalTitle").textContent = product ? `Consultar: ${product.name}` : "Consultar con BellaShine";
+      const message = product
+        ? `Hola, deseo consultar por ${product.name}. ${product.description} Precio: ${product.price}. ¿Podrían brindarme más información?`
+        : "Hola, deseo recibir información sobre los productos de BellaShine.";
+      $("modalStaff").innerHTML = STAFF.map(person=>`
+        <a href="${whatsappLink(person,message)}" target="_blank" rel="noopener">
+          <span>${escapeHtml(person.name)}<br><small style="color:#887773">${person.phone.replace("591","")}</small></span>
+          <span>Consultar ↗</span>
+        </a>
+      `).join("");
+      $("consultModal").classList.add("show");
+    }
+
+    function renderStaff(){
+      $("staffList").innerHTML = STAFF.map(person=>`
+        <div class="staff-item">
+          <div><strong>${escapeHtml(person.name)}</strong><small>${person.phone.replace("591","")}</small></div>
+          <a href="${whatsappLink(person,"Hola, deseo comunicarme con BellaShine. ¿Podrían ayudarme?")}" target="_blank" rel="noopener">WhatsApp ↗</a>
+        </div>
+      `).join("");
+      $("modalStaff").innerHTML = STAFF.map(person=>`
+        <a href="${whatsappLink(person,"Hola, deseo comunicarme con BellaShine.")}" target="_blank" rel="noopener">
+          <span>${escapeHtml(person.name)}</span><span>Consultar ↗</span>
+        </a>
+      `).join("");
+      $("assignedStaff").innerHTML = '<option value="BellaShine">Cualquier integrante disponible</option>' +
+        STAFF.map(p=>`<option value="${escapeAttr(p.name)}">${escapeHtml(p.name)}</option>`).join("");
+    }
+
+    function getAppointments(){
+      try{return JSON.parse(localStorage.getItem("bellashine_appointments") || "[]")}catch(e){return []}
+    }
+    function saveAppointments(items){
+      localStorage.setItem("bellashine_appointments",JSON.stringify(items));
+    }
+    function renderAppointments(){
+      const items = getAppointments();
+      $("appointmentItems").innerHTML = items.length ? items.slice().reverse().map(item=>`
+        <div class="appointment">
+          <strong>${escapeHtml(item.name)}</strong><br>
+          Fecha: ${escapeHtml(item.date)} · Hora: ${escapeHtml(item.time)}<br>
+          Celular: ${escapeHtml(item.phone)}<br>
+          Personal: ${escapeHtml(item.staff)}<br>
+          Motivo: ${escapeHtml(item.reason || "No especificado")}
+          <br><button class="back-btn" type="button" data-delete="${escapeAttr(item.id)}">Eliminar de este dispositivo</button>
+        </div>
+      `).join("") : '<p class="form-note">Todavía no hay citas registradas en este dispositivo.</p>';
+      document.querySelectorAll("[data-delete]").forEach(button=>{
+        button.addEventListener("click",()=>{
+          const updated = getAppointments().filter(item=>item.id!==button.dataset.delete);
+          saveAppointments(updated);renderAppointments();
+        });
+      });
+    }
+
+    async function sendToSharedRegistry(appointment){
+      if(!API_URL) return {shared:false};
+      try{
+        // Tu endpoint debe aceptar POST con JSON y guardar el objeto recibido.
+        await fetch(API_URL,{
+          method:"POST",
+          mode:"no-cors",
+          headers:{"Content-Type":"text/plain;charset=utf-8"},
+          body:JSON.stringify(appointment)
+        });
+        return {shared:true};
+      }catch(error){
+        console.warn("No se pudo enviar al registro compartido:",error);
+        return {shared:false};
+      }
+    }
+
+    $("bookingForm").addEventListener("submit",async event=>{
+      event.preventDefault();
+      const appointment = {
+        id: (crypto.randomUUID ? crypto.randomUUID() : String(Date.now())),
+        name:$("clientName").value.trim(),
+        phone:$("clientPhone").value.trim(),
+        date:$("appointmentDate").value,
+        time:$("appointmentTime").value,
+        reason:$("appointmentReason").value.trim(),
+        staff:$("assignedStaff").value,
+        createdAt:new Date().toISOString(),
+        status:"Solicitud recibida en este dispositivo"
+      };
+      if(!appointment.name || !appointment.phone || !appointment.date || !appointment.time) return;
+      if(appointment.date < new Date().toISOString().slice(0,10)){
+        $("bookingResult").style.display="block";
+        $("bookingResult").textContent="Elige una fecha de hoy o posterior.";
+        return;
+      }
+      const items=getAppointments();
+      items.push(appointment);
+      saveAppointments(items);
+      renderAppointments();
+
+      const shared = await sendToSharedRegistry(appointment);
+      const message =
+        `Hola, soy ${appointment.name}. Deseo solicitar una cita en BellaShine.\n`+
+        `Celular: ${appointment.phone}\nFecha: ${appointment.date}\nHora: ${appointment.time}\n`+
+        `Motivo: ${appointment.reason || "Consulta general"}\nPersonal solicitado: ${appointment.staff}\n`+
+        `Por favor, confirmen si está disponible.`;
+      const target = STAFF.find(p=>p.name===appointment.staff) || STAFF[0];
+      $("bookingResult").style.display="block";
+      $("bookingResult").textContent = shared
+        ? "La solicitud se guardó en este dispositivo y se envió al servicio de registro compartido. Ahora se abrirá WhatsApp para confirmar."
+        : "La solicitud se guardó en este dispositivo. Para compartirla con todos los operadores, falta configurar la conexión de base de datos. Ahora se abrirá WhatsApp.";
+      window.open(whatsappLink(target,decodeURIComponent(message.replace(/%0A/g,"\n"))),"_blank","noopener");
+      $("bookingForm").reset();
+      $("appointmentDate").min=new Date().toISOString().slice(0,10);
+    });
+
+    $("backToCategories").addEventListener("click",()=>{
+      $("catalog").hidden=true;
+      document.querySelectorAll(".category-card").forEach(b=>b.classList.remove("active"));
+      $("categorias").scrollIntoView({behavior:"smooth"});
+    });
+    $("generalConsult").addEventListener("click",()=>openConsultModal(null));
+    $("closeModal").addEventListener("click",()=>$("consultModal").classList.remove("show"));
+    $("consultModal").addEventListener("click",e=>{if(e.target===$("consultModal")) $("consultModal").classList.remove("show")});
+    $("menuToggle").addEventListener("click",()=>$("mainNav").classList.toggle("open"));
+    document.querySelectorAll("#mainNav a").forEach(a=>a.addEventListener("click",()=>$("mainNav").classList.remove("open")));
+
+    $("appointmentDate").min=new Date().toISOString().slice(0,10);
+    $("year").textContent=new Date().getFullYear();
+    renderCategories();renderStaff();renderAppointments();
+  </script>
+</body>
+</html>
